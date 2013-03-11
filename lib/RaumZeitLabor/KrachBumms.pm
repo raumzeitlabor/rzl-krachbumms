@@ -4,18 +4,20 @@ use 5.12.0;
 use strict;
 use warnings;
 
-use AnyEvent;
+# these are in CORE
 use File::Find;
 use File::Spec::Functions;
 use File::Basename;
+use Data::Dumper;
+
+# these are not in CORE
+use AnyEvent;
 use Linux::Inotify2;
+use Tatsumaki::Handler;
+use Tatsumaki::Application;
 
 use Exporter qw/import/;
 our @EXPORT = qw(get_file);
-
-use Data::Dumper;
-use Tatsumaki::Handler;
-use Tatsumaki::Application;
 
 use RaumZeitLabor::KrachBumms::IndexHandler;
 use RaumZeitLabor::KrachBumms::PlayHandler;

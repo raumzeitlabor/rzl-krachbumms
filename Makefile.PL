@@ -10,9 +10,9 @@ build_requires 'Test::More';
 requires 'EV';
 requires 'AnyEvent';
 requires 'JSON::XS';
-requires 'Audio::Play::MPG123';
+requires 'Tatsumaki';
 requires 'Linux::Inotify2';
-requires 'File::Find';
+requires 'Audio::Play::MPG123';
 
 auto_install;
 
