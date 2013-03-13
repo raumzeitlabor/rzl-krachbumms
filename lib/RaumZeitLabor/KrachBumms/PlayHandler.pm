@@ -13,6 +13,7 @@ __PACKAGE__->asynchronous(1);
 use Audio::Play::MPG123;
 my $player = new Audio::Play::MPG123;
 my $idle_w;
+my $play_w;
 
 sub get {
     my($self, $query) = @_;
@@ -26,7 +27,7 @@ sub get {
 
     if ($f) {
         say "playing $f";
-        $player->load($f);
+        $play_w = AnyEvent->idle(cb => sub { $player->load($f); undef $play_w });
     }
     $self->write(encode_json {
         status => $f ? "success" : "notfound",
