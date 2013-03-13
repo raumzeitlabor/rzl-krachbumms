@@ -17,6 +17,12 @@ sub get {
     my($self, $query) = @_;
     $self->response->content_type('application/json');
     my ($f, $l) = RaumZeitLabor::KrachBumms::get_file($query);
+
+    # "This function should be called regularly, since mpg123 will stop playing
+    # when it can't write out events because the perl program is no longer
+    # listening..."
+    $player->poll;
+
     if ($f) {
         say "playing $f";
         $player->load($f);
