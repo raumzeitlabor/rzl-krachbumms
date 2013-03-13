@@ -12,6 +12,7 @@ __PACKAGE__->asynchronous(1);
 
 use Audio::Play::MPG123;
 my $player = new Audio::Play::MPG123;
+my $idle_w;
 
 sub get {
     my($self, $query) = @_;
@@ -21,7 +22,7 @@ sub get {
     # "This function should be called regularly, since mpg123 will stop playing
     # when it can't write out events because the perl program is no longer
     # listening..."
-    $player->poll;
+    $idle_w ||= AnyEvent->idle(cb => sub { $player->poll; undef $idle_w });
 
     if ($f) {
         say "playing $f";
